@@ -10,9 +10,9 @@ export const TitleBar = styled.div<TitleBarProps>`
   height: 80px;
   height: ${(props) => (props.Card ? "70px" : "80px")};
   color: #fff;
-  background-color: #000;
+  background: linear-gradient(45deg, #8481fa, #38c9c8);
   font-size: 2.2rem;
-  padding: 10px 30px 0 25px;
+  padding: 10px 30px 10px 25px;
 
   h3 {
   }

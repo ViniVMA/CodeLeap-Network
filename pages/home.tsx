@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 
-import { Home } from "@/modules/Home";
+import { HomePage } from "@/modules/Home";
 
-const HomeRoute: NextPage = Home;
+const HomeRoute: NextPage = HomePage;
 
 export default HomeRoute;

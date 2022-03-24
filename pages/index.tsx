@@ -1,16 +1,12 @@
+import { HomePage } from "@/modules/Home";
 import type { NextPage } from "next";
-import useStore from "src/zustand/userStore";
+import useStore from "redux/userStore";
 
 import Login from "./login";
 
 const Home: NextPage = () => {
   const { data } = useStore();
-  return (
-    <>
-      <Login />
-      <button onClick={() => console.log(data.name)}>aaaaa</button>
-    </>
-  );
+  return <>{data.name ? <HomePage /> : <Login />}</>;
 };
 
 export default Home;

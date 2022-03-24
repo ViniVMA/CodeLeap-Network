@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import useStore from "src/zustand/userStore";
+import useStore from "redux/userStore";
 
 type FormValues = {
   name: string;
@@ -35,8 +35,11 @@ export const Login = () => {
         <h1>Welcome to CodeLeap network!</h1>
         <p>Please enter your username</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name", { required: true })} />
-          <S.LoginButton type="submit">ENTER</S.LoginButton>
+          <S.Input {...register("name", { required: true })} />
+
+          <S.LoginButton disabled={!isValid} type="submit">
+            ENTER
+          </S.LoginButton>
         </form>
       </S.LoginModal>
     </S.Login>

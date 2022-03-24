@@ -11,13 +11,14 @@ export const Button = styled.button`
   border: none;
   outline: none;
   color: #fff;
+  border-radius: 5px;
   background: linear-gradient(45deg, #8481fa, #38c9c8);
   -webkit-background-size: 150% 150%;
   background-size: 150% 150%;
   cursor: pointer;
-  transition: all 100ms ease 0s;
+  transition: transform 0.2s;
 
   :hover {
-    background: linear-gradient(45deg, #38c9c8, #8481fa);
+    transform: scale(1.1);
   }
 `;
