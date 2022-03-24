@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Button } from "../Button/button.style";
 
 export const Login = styled.div`
@@ -29,6 +29,7 @@ export const LoginModal = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration-color: linear-gradient(45deg, #8481fa, #38c9c8);
+    -webkit-animation: hue 10s infinite linear;
   }
   p {
     font-weight: 400;
@@ -41,19 +42,30 @@ export const LoginModal = styled.div`
     }
   }
 
-  input {
-    max-height: 28px;
-    height: 28px;
-    width: 100%;
-    align-items: stretch;
-    background: #ffffff;
-    border: 1px solid #777777;
-    box-sizing: border-box;
-    border-radius: 4px;
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      max-height: 28px;
+      height: 28px;
+      width: 100%;
+      align-items: stretch;
+      background: #ffffff;
+      border: 1px solid #777777;
+      box-sizing: border-box;
+      border-radius: 4px;
+      font-size: 1.6rem;
+    }
   }
 `;
 
-export const LoginButton = styled(Button)`
+interface ButtonProps {
+  disabled?: boolean | undefined;
+}
+
+export const LoginButton = styled(Button)<ButtonProps>`
   align-self: end;
   margin-top: 20px;
+
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 `;

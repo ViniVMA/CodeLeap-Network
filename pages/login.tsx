@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import { Login } from "@/components/Login";
+import { Login } from "src/components/Login";
 
 const LoginRoute: NextPage = Login;
 
