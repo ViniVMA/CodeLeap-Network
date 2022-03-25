@@ -10,6 +10,7 @@ export const Home = styled.div`
 export const Content = styled.div`
   max-width: 800px;
   width: 100%;
+  height: 100%;
   background-color: #fff;
   font-size: 2.2rem;
 `;
@@ -20,6 +21,7 @@ export const CardsWrapper = styled.div`
   align-items: center;
   gap: 44px;
   max-height: 40%;
+  height: 100%;
   overflow: scroll;
   overflow-x: hidden;
   max-width: 760px;

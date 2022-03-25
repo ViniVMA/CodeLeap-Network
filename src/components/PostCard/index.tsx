@@ -7,12 +7,19 @@ interface PostCardProps {
   time: string;
   post: string;
   title?: string;
+  isAuthor?: boolean;
 }
 
-export const PostCard = ({ user, time, post, title }: PostCardProps) => {
+export const PostCard = ({
+  user,
+  time,
+  post,
+  title,
+  isAuthor,
+}: PostCardProps) => {
   return (
     <S.PostCard>
-      <TitleBar title={title} />
+      <TitleBar title={title} isAuthor={isAuthor} />
       <S.ContentWrapper>
         <S.Content>
           <S.NameWrapper>

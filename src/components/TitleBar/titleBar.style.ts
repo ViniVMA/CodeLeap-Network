@@ -7,6 +7,7 @@ interface TitleBarProps {
 export const TitleBar = styled.div<TitleBarProps>`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 80px;
   height: ${(props) => (props.Card ? "70px" : "80px")};
   color: #fff;
@@ -16,4 +17,9 @@ export const TitleBar = styled.div<TitleBarProps>`
 
   h3 {
   }
+`;
+
+export const IconsWrapper = styled.div`
+  display: flex;
+  gap: 23px;
 `;

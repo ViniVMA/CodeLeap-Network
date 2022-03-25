@@ -56,17 +56,11 @@ p, h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
   height: 100%;
-  background-color: #000;
+  /* background-color: #000; */
 
   #backgroundVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    opacity: 0.1;
-    z-index: -5;
+    
+    
     
   }
 }

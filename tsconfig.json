@@ -20,6 +20,12 @@
       "@/modules/*": ["src/modules/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/Icons/Edit.js",
+    "src/components/Icons/Delete.js"
+  ],
   "exclude": ["node_modules"]
 }

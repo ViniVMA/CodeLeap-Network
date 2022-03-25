@@ -19,7 +19,6 @@ export const Login = () => {
   } = useForm<FormValues>({
     mode: "onChange",
   });
-  // const onSubmit = handleSubmit((data) => setName(data));
 
   function onSubmit(data: FormValues) {
     setName(data);

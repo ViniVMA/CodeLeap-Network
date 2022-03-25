@@ -3,9 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useFetch<T = unknown>(url: string) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const fetchresponse = async () => {
+    setLoading(true);
     axios
       .get(url)
       .then((response) => setData(response.data.results))
@@ -16,5 +17,5 @@ export function useFetch<T = unknown>(url: string) {
     fetchresponse();
   }, [url]);
 
-  return { data, fetchresponse };
+  return { data, fetchresponse, loading };
 }

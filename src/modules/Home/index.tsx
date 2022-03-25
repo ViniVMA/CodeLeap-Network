@@ -13,6 +13,7 @@ import { PostCard } from "@/components/PostCard";
 import { CreatePost } from "@/components/CreatePost";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Loading } from "@/components/Loading";
 
 type FormValues = {
   title: string;
@@ -31,10 +32,14 @@ interface Post {
 const url = `https://dev.codeleap.co.uk/careers/`;
 
 export const HomePage = () => {
-  const methods = useForm<FormValues>();
-
   const { data: user } = useStore();
-  const { data, fetchresponse } = useFetch<Post[]>(url);
+  const { data, fetchresponse, loading } = useFetch<Post[]>(url);
+
+  // setInterval(() => fetchresponse(), 60000);
+
+  const methods = useForm<FormValues>({
+    mode: "onChange",
+  });
 
   const onSubmit = (data: FormValues) => {
     data.username = user.name;
@@ -58,19 +63,25 @@ export const HomePage = () => {
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <CreatePost />
           </form>
-
           <S.CardsWrapper>
-            {data?.map(({ id, username, content, created_datetime, title }) => {
-              return (
-                <PostCard
-                  key={id}
-                  user={username}
-                  post={content}
-                  time={created_datetime}
-                  title={title}
-                />
-              );
-            })}
+            {loading ? (
+              <Loading />
+            ) : (
+              data?.map(
+                ({ id, username, content, created_datetime, title }) => {
+                  return (
+                    <PostCard
+                      isAuthor={username === user.name}
+                      key={id}
+                      user={username}
+                      post={content}
+                      time={created_datetime}
+                      title={title}
+                    />
+                  );
+                },
+              )
+            )}
           </S.CardsWrapper>
         </S.Content>
       </FormProvider>
