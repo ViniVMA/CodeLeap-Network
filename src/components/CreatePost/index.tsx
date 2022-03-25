@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -14,32 +14,15 @@ type FormValues = {
 };
 
 export const CreatePost = () => {
-  const { data: user } = useStore();
+  const { register } = useFormContext();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormValues>();
-  const onSubmit = (data: FormValues) => {
-    data.username = user.name;
-    data.username.length > 0
-      ? axios
-          .post("https://dev.codeleap.co.uk/careers/", data, {
-            headers: { "Content-Type": "application/json" },
-          })
-          .then((response) => {})
-          .catch((error) => {
-            console.log(error.data);
-          })
-      : "";
-  };
+  const { data: user } = useStore();
 
   return (
     <S.CreatePost>
       <S.Content>
-        <h3>What’s on your mind?</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <h3>What’s on your mind? {user.name}</h3>
+        <S.FormWrapper>
           <div {...register("username")} />
           <label>Title</label>
           <S.Input
@@ -53,8 +36,8 @@ export const CreatePost = () => {
             placeholder="Content"
             {...register("content", { required: true })}
           />
-          <input type="submit" />
-        </form>
+          <S.LoginButton type="submit">Teste</S.LoginButton>
+        </S.FormWrapper>
       </S.Content>
     </S.CreatePost>
   );

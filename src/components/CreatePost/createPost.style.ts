@@ -11,36 +11,35 @@ export const CreatePost = styled.div`
 export const Content = styled.div`
   max-width: 659px;
   margin: 23px auto 29px auto;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 35px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-    textarea {
-      width: 100%;
-      height: 74px;
-      border: 1px solid #777777;
-      margin-bottom: 35px;
-      resize: none;
-      padding: 10px;
-      border-radius: 4px;
-    }
-
-    label {
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      margin-bottom: 7px;
-    }
-    input {
-      margin-bottom: 19px;
-    }
-  }
 `;
 
+export const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  textarea {
+    width: 100%;
+    height: 74px;
+    border: 1px solid #777777;
+    margin-bottom: 35px;
+    resize: none;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 7px;
+  }
+  input {
+    margin-bottom: 19px;
+  }
+`;
 interface InputProps {
   error?: boolean;
 }
