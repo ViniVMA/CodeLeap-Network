@@ -22,4 +22,8 @@ export const TitleBar = styled.div<TitleBarProps>`
 export const IconsWrapper = styled.div`
   display: flex;
   gap: 23px;
+
+  svg {
+    cursor: pointer;
+  }
 `;

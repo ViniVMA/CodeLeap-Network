@@ -1,6 +1,11 @@
-const EditIcon = () => {
+interface EditIconProps {
+  onClick?: React.MouseEventHandler;
+}
+
+const EditIcon = ({ onClick }: EditIconProps) => {
   return (
     <svg
+      onClick={onClick}
       width="30"
       height="30"
       viewBox="0 0 30 30"

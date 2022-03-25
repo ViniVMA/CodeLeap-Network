@@ -32,7 +32,7 @@ export const CreatePost = () => {
             {...register("content", { required: true })}
           />
           <S.LoginButton disabled={!isDirty || !isValid} type="submit">
-            Teste
+            CREATE
           </S.LoginButton>
         </S.FormWrapper>
       </S.Content>

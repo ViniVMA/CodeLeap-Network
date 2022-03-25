@@ -12,7 +12,7 @@ export const ContentWrapper = styled.div`
 export const Content = styled.div`
   max-width: 662px;
   width: 100%;
-  margin: 24px auto 40px; auto;
+  margin: 24px auto 40px auto;
 
   p {
     font-weight: 400;

@@ -8,6 +8,8 @@ interface PostCardProps {
   post: string;
   title?: string;
   isAuthor?: boolean;
+  handleEditClick?: React.MouseEventHandler;
+  handleDeleteClick?: React.MouseEventHandler;
 }
 
 export const PostCard = ({
@@ -16,10 +18,17 @@ export const PostCard = ({
   post,
   title,
   isAuthor,
+  handleEditClick,
+  handleDeleteClick,
 }: PostCardProps) => {
   return (
     <S.PostCard>
-      <TitleBar title={title} isAuthor={isAuthor} />
+      <TitleBar
+        title={title}
+        isAuthor={isAuthor}
+        handleDeleteClick={handleDeleteClick}
+        handleEditClick={handleEditClick}
+      />
       <S.ContentWrapper>
         <S.Content>
           <S.NameWrapper>

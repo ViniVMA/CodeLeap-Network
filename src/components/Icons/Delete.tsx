@@ -1,6 +1,11 @@
-const DeleteIcon = () => {
+interface DeleteIconProps {
+  onClick?: React.MouseEventHandler;
+}
+
+const DeleteIcon = ({ onClick }: DeleteIconProps) => {
   return (
     <svg
+      onClick={onClick}
       width="28"
       height="28"
       viewBox="0 0 18 24"
