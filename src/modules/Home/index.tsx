@@ -1,5 +1,10 @@
 import * as S from "./home.style";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import {
+  FormProvider,
+  useForm,
+  useFormContext,
+  useFormState,
+} from "react-hook-form";
 
 import useStore from "redux/userStore";
 import { TitleBar } from "@/components/TitleBar";
@@ -26,15 +31,10 @@ interface Post {
 const url = `https://dev.codeleap.co.uk/careers/`;
 
 export const HomePage = () => {
-  const methods = useForm();
-  const { data: user } = useStore();
-  const { data, fetch } = useFetch<Post[]>(url);
+  const methods = useForm<FormValues>();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormValues>();
+  const { data: user } = useStore();
+  const { data, fetchresponse } = useFetch<Post[]>(url);
 
   const onSubmit = (data: FormValues) => {
     data.username = user.name;
@@ -43,9 +43,7 @@ export const HomePage = () => {
           .post("https://dev.codeleap.co.uk/careers/", data, {
             headers: { "Content-Type": "application/json" },
           })
-          .then((response) => {
-            () => fetch;
-          })
+          .then(() => fetchresponse())
           .catch((error) => {
             console.log(error.data);
           })
@@ -56,7 +54,7 @@ export const HomePage = () => {
     <S.Home>
       <FormProvider {...methods}>
         <S.Content>
-          <TitleBar />
+          <TitleBar title="CodeLeap Network" />
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <CreatePost />
           </form>
@@ -69,6 +67,7 @@ export const HomePage = () => {
                   user={username}
                   post={content}
                   time={created_datetime}
+                  title={title}
                 />
               );
             })}

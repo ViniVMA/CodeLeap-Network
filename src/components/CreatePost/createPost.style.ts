@@ -11,6 +11,17 @@ export const CreatePost = styled.div`
 export const Content = styled.div`
   max-width: 659px;
   margin: 23px auto 29px auto;
+
+  h3 {
+    span {
+      background: linear-gradient(45deg, #8481fa, #38c9c8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration-color: linear-gradient(45deg, #8481fa, #38c9c8);
+    }
+  }
 `;
 
 export const FormWrapper = styled.div`
@@ -64,5 +75,5 @@ interface ButtonProps {
 export const LoginButton = styled(Button)<ButtonProps>`
   align-self: end;
   height: 33px;
-  /* opacity: ${(props) => (props.disabled ? "0.5" : "1")}; */
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 `;

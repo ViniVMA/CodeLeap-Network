@@ -12,9 +12,6 @@ type FormValues = {
 export const Login = () => {
   const { setName } = useStore();
   const router = useRouter();
-
-  const [user, setUser] = useState<FormValues>();
-
   const {
     register,
     handleSubmit,

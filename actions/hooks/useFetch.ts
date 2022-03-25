@@ -5,18 +5,16 @@ export function useFetch<T = unknown>(url: string) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetch = useCallback(() => {
+  const fetchresponse = async () => {
     axios
       .get(url)
       .then((response) => setData(response.data.results))
-      .then(() => setLoading(!loading));
-  });
+      .then(() => setLoading(false));
+  };
 
   useEffect(() => {
-    setLoading(true);
-    fetch();
-    setLoading(false);
-  }, [fetch]);
+    fetchresponse();
+  }, [url]);
 
-  return { data, fetch };
+  return { data, fetchresponse };
 }

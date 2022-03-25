@@ -1,10 +1,14 @@
 import React from "react";
 import * as S from "./titleBar.style";
 
-export const TitleBar = () => {
+interface TitleBarProps {
+  title?: string;
+}
+
+export const TitleBar = ({ title }: TitleBarProps) => {
   return (
     <S.TitleBar>
-      <h3>Hello world</h3>
+      <h3>{title}</h3>
     </S.TitleBar>
   );
 };

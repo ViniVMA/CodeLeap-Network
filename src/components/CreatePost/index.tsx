@@ -1,27 +1,22 @@
-import { useForm, useFormContext } from "react-hook-form";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 import useStore from "redux/userStore";
 import * as S from "./createPost.style";
 
-import axios from "axios";
-
-type FormValues = {
-  title: string;
-  content: string;
-  username: string;
-};
-
 export const CreatePost = () => {
-  const { register } = useFormContext();
+  const { register, formState } = useFormContext();
 
   const { data: user } = useStore();
+
+  const { isDirty, isValid } = formState;
 
   return (
     <S.CreatePost>
       <S.Content>
-        <h3>What’s on your mind? {user.name}</h3>
+        <h3>
+          Welcome <span>{user.name ? `${user.name}` : "Please Log-in"},</span>{" "}
+          What’s on your mind?
+        </h3>
         <S.FormWrapper>
           <div {...register("username")} />
           <label>Title</label>
@@ -36,7 +31,9 @@ export const CreatePost = () => {
             placeholder="Content"
             {...register("content", { required: true })}
           />
-          <S.LoginButton type="submit">Teste</S.LoginButton>
+          <S.LoginButton disabled={!isDirty || !isValid} type="submit">
+            Teste
+          </S.LoginButton>
         </S.FormWrapper>
       </S.Content>
     </S.CreatePost>

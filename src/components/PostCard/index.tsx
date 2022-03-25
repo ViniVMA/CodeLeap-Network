@@ -1,21 +1,25 @@
 import { TitleBar } from "../TitleBar";
 import * as S from "./postCard.style";
+import TimeAgo from "react-timeago";
 
 interface PostCardProps {
   user: string;
   time: string;
   post: string;
+  title?: string;
 }
 
-export const PostCard = ({ user, time, post }: PostCardProps) => {
+export const PostCard = ({ user, time, post, title }: PostCardProps) => {
   return (
     <S.PostCard>
-      <TitleBar />
+      <TitleBar title={title} />
       <S.ContentWrapper>
         <S.Content>
           <S.NameWrapper>
             <S.Name>@{user}</S.Name>
-            <S.Time>{time}</S.Time>
+            <S.Time>
+              <TimeAgo date={time} />
+            </S.Time>
           </S.NameWrapper>
           <p>{post}</p>
         </S.Content>
