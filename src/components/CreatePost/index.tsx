@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-import useStore from "redux/userStore";
+import useStore from "src/redux/userStore";
 import * as S from "./createPost.style";
 
 export const CreatePost = () => {
@@ -31,9 +31,9 @@ export const CreatePost = () => {
             placeholder="Content"
             {...register("content", { required: true })}
           />
-          <S.LoginButton disabled={!isDirty || !isValid} type="submit">
+          <S.CreateButton disabled={!isDirty || !isValid} type="submit">
             CREATE
-          </S.LoginButton>
+          </S.CreateButton>
         </S.FormWrapper>
       </S.Content>
     </S.CreatePost>

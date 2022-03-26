@@ -14,7 +14,6 @@ export const DeletePostModal = styled.div`
 `;
 
 export const CancelButton = styled(Button)`
-  height: 33px;
   box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
   color: #000;
   border: solid 3px transparent;
@@ -28,11 +27,12 @@ export const CancelButton = styled(Button)`
   box-shadow: 2px 1000px 1px #fff inset;
 `;
 
-export const DeleteButton = styled(Button)`
-  height: 33px;
-`;
+export const DeleteButton = styled(Button)``;
 
 export const ButtonsWrapper = styled.div`
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 19px;
   display: flex;
   gap: 16px;
   justify-content: flex-end;

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import useStore from "redux/userStore";
+import useStore from "src/redux/userStore";
 
 type FormValues = {
   name: string;

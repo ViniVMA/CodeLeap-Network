@@ -29,7 +29,7 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   margin-top: 35px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 16px;
   textarea {
     width: 100%;
@@ -43,7 +43,7 @@ export const FormWrapper = styled.div`
 
   label {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 19px;
     margin-bottom: 7px;
   }
@@ -72,8 +72,7 @@ interface ButtonProps {
   disabled?: boolean | undefined;
 }
 
-export const LoginButton = styled(Button)<ButtonProps>`
+export const CreateButton = styled(Button)<ButtonProps>`
   align-self: end;
-  height: 33px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 `;

@@ -16,7 +16,7 @@ export const Content = styled.div`
 
   p {
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 21px;
   }
 `;
@@ -26,7 +26,7 @@ export const NameWrapper = styled.div`
   justify-content: space-between;
   color: #777777;
   line-height: 21px;
-  font-size: 18px;
+  font-size: 1.8rem;
   margin-bottom: 18px;
 `;
 

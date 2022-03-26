@@ -1,7 +1,7 @@
-import { Button } from "@/components/Button/button.style";
 import styled, { css } from "styled-components";
+import { Button } from "../../components/Button/button.style";
 
-export const Home = styled.div`
+export const Login = styled.div`
   height: 100%;
   width: 100%;
   display: grid;
@@ -13,11 +13,10 @@ export const LoginModal = styled.div`
   flex-direction: column;
   max-width: 500px;
   width: 100%;
-  /* max-height: 220px; */
-  /* height: 100%; */
   background-color: #fff;
   padding: 25px;
   border: 1px solid #cccccc;
+  border-radius: 20px;
 
   h1 {
     font-weight: 700;
@@ -32,7 +31,7 @@ export const LoginModal = styled.div`
   }
   p {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 19px;
     margin: 30px 0 15px;
 
@@ -44,18 +43,24 @@ export const LoginModal = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    input {
-      max-height: 28px;
-      height: 28px;
-      width: 100%;
-      align-items: stretch;
-      background: #ffffff;
-      border: 1px solid #777777;
-      box-sizing: border-box;
-      border-radius: 4px;
-      font-size: 1.6rem;
-    }
   }
+`;
+
+interface InputProps {
+  error?: boolean;
+}
+
+export const Input = styled.input<InputProps>`
+  max-height: 28px;
+  height: 28px;
+  width: 100%;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid #777777;
+  border: ${(props) => (props.error ? "1px solid red" : " 1px solid #777777")};
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 1.6rem;
 `;
 
 interface ButtonProps {
@@ -65,6 +70,5 @@ interface ButtonProps {
 export const LoginButton = styled(Button)<ButtonProps>`
   align-self: end;
   margin-top: 20px;
-
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 `;

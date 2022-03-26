@@ -1,6 +1,6 @@
 import { HomePage } from "@/modules/Home";
 import type { NextPage } from "next";
-import useStore from "redux/userStore";
+import useStore from "src/redux/userStore";
 
 import Login from "./login";
 

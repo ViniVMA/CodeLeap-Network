@@ -12,7 +12,6 @@ interface ModalsProps {
   ) => void;
   onCancel?: React.MouseEventHandler;
   onDelete?: React.MouseEventHandler;
-  test: string | null;
 }
 
 export const DeletePostModal = ({
@@ -20,7 +19,6 @@ export const DeletePostModal = ({
   afterOpenModal,
   closeModal,
   onDelete,
-  test,
 }: ModalsProps) => {
   return (
     <Modal
@@ -30,10 +28,9 @@ export const DeletePostModal = ({
     >
       <S.DeletePostModal>
         <span>Are you sure you want to delete this item?</span>
-        <>{test}</>
         <S.ButtonsWrapper>
-          <S.CancelButton onClick={closeModal}>Cancel</S.CancelButton>
-          <S.DeleteButton onClick={onDelete}>Hello</S.DeleteButton>
+          <S.CancelButton onClick={closeModal}>CANCEL</S.CancelButton>
+          <S.DeleteButton onClick={onDelete}>OK</S.DeleteButton>
         </S.ButtonsWrapper>
       </S.DeletePostModal>
     </Modal>

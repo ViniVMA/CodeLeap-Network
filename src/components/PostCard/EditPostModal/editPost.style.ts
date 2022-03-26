@@ -8,7 +8,7 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   margin-top: 35px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 16px;
   textarea {
     width: 100%;
@@ -22,7 +22,7 @@ export const FormWrapper = styled.div`
 
   label {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 19px;
     margin-bottom: 7px;
   }
@@ -51,8 +51,28 @@ interface ButtonProps {
   disabled?: boolean | undefined;
 }
 
-export const LoginButton = styled(Button)<ButtonProps>`
-  align-self: end;
-  height: 33px;
-  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+export const CancelButton = styled(Button)`
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  color: #000;
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(101deg, #8481fa, #38c9c8);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+`;
+
+export const EditButton = styled(Button)``;
+
+export const ButtonsWrapper = styled.div`
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 19px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
 `;

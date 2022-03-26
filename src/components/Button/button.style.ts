@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  font-size: 2.2rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 19px;
   max-width: 111px;
   max-height: 33px;
   width: 100%;
-  height: 100%;
+  height: 33px;
   flex: 1 1 auto;
   padding: 0;
   border: none;
