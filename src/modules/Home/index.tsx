@@ -1,21 +1,19 @@
 import * as S from "./home.style";
-import {
-  FormProvider,
-  useForm,
-  useFormContext,
-  useFormState,
-} from "react-hook-form";
 
-import useStore from "redux/userStore";
 import { TitleBar } from "@/components/TitleBar";
 import { useFetch } from "actions/hooks/useFetch";
 import { PostCard } from "@/components/PostCard";
 import { CreatePost } from "@/components/CreatePost";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Loading } from "@/components/Loading";
-import { useRouter } from "next/router";
 import { Login } from "@/components/Login";
+import { DeletePostModal } from "@/components/PostCard/DeletePostModal";
+import { EditPostModal } from "@/components/PostCard/EditPostModal";
+
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+
+import useStore from "redux/userStore";
+import axios from "axios";
 
 type FormValues = {
   title: string;
@@ -25,7 +23,7 @@ type FormValues = {
 
 interface Post {
   username: string;
-  id: string;
+  id: number;
   content: string;
   created_datetime: string;
   title: string;
@@ -36,17 +34,10 @@ const url = `https://dev.codeleap.co.uk/careers/`;
 export const HomePage = () => {
   const { data: user } = useStore();
   const { data, fetchresponse, loading } = useFetch<Post[]>(url);
-  const router = useRouter();
-
-  // setInterval(() => fetchresponse(), 60000);
 
   const methods = useForm<FormValues>({
     mode: "onChange",
   });
-
-  const alerta = () => {
-    alert("Hello World");
-  };
 
   const onSubmit = (data: FormValues) => {
     data.username = user.name;
@@ -56,11 +47,22 @@ export const HomePage = () => {
             headers: { "Content-Type": "application/json" },
           })
           .then(() => fetchresponse())
-          .catch((error) => {
-            console.log(error.data);
-          })
+          .catch((error) => {})
       : "";
   };
+
+  const deletePost = (id: number) => {
+    axios.delete(`https://dev.codeleap.co.uk/careers/${id}/`).then(() => {
+      setDeleteModalIsOpen(false);
+      fetchresponse();
+    });
+  };
+
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
+  const [modalData, setModalData] = useState<any | null>(null);
 
   return (
     <>
@@ -77,11 +79,17 @@ export const HomePage = () => {
                   <Loading />
                 ) : (
                   data?.map(
-                    ({ id, username, content, created_datetime, title }) => {
+                    (
+                      { id, username, content, created_datetime, title },
+                      index,
+                    ) => {
                       return (
                         <PostCard
-                          handleDeleteClick={() => alerta()}
-                          handleEditClick={() => alerta()}
+                          handleDeleteClick={() => {
+                            setDeleteModalIsOpen(true);
+                            setModalData(data[index].id);
+                          }}
+                          handleEditClick={() => setEditModalIsOpen(true)}
                           isAuthor={username === user.name}
                           key={id}
                           user={username}
@@ -94,6 +102,19 @@ export const HomePage = () => {
                   )
                 )}
               </S.CardsWrapper>
+              <DeletePostModal
+                modalIsOpen={deleteModalIsOpen}
+                closeModal={() => setDeleteModalIsOpen(false)}
+                onDelete={() => deletePost(modalData)}
+                test={modalData}
+              />
+              <EditPostModal
+                modalIsOpen={editModalIsOpen}
+                closeModal={(e) => {
+                  e.stopPropagation();
+                  setEditModalIsOpen(false);
+                }}
+              />
             </S.Content>
           </FormProvider>
         </S.Home>

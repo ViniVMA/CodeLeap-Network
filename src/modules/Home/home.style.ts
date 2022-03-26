@@ -5,14 +5,17 @@ export const Home = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Content = styled.div`
   max-width: 800px;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   background-color: #fff;
   font-size: 2.2rem;
+  padding-bottom: 20px;
+  transition: transform 0.2s;
 `;
 
 export const CardsWrapper = styled.div`
@@ -20,7 +23,7 @@ export const CardsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 44px;
-  max-height: 40%;
+  max-height: 40vh;
   height: 100%;
   overflow: scroll;
   overflow-x: hidden;
