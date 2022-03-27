@@ -50,11 +50,7 @@ export const HomePage = () => {
     setPosts(data);
   }, [data]);
 
-  const handleLoadMore = (param) => {
-    setOffset(offset + param);
-    infiniteLoading();
-    console.log("rodei", offset);
-  };
+  //
 
   const methods = useForm<Post>({
     mode: "onChange",
@@ -96,8 +92,8 @@ export const HomePage = () => {
         content: data.content,
       })
       .then(() => {
-        // refetch();
         setEditModalIsOpen(false);
+        refetch();
       });
   };
 
@@ -156,12 +152,7 @@ export const HomePage = () => {
                   <S.ButtonsWrapper ref={ref}>
                     {inView ? (
                       <>
-                        {/* <S.NavigationButton onClick={() => handleLoadMore(-10)}>
-                          bACK
-                        </S.NavigationButton>
-                        <S.NavigationButton onClick={() => handleLoadMore(+10)}>
-                          NEXT
-                        </S.NavigationButton> */}
+                        <></>
                       </>
                     ) : null}
                   </S.ButtonsWrapper>
