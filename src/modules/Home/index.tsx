@@ -1,7 +1,7 @@
 import * as S from "./home.style";
 
 import { TitleBar } from "@/components/TitleBar";
-import { useFetch } from "src/actions/hooks/useFetch";
+import useFetch from "src/actions/hooks/useFetch";
 import { PostCard } from "@/components/PostCard";
 import { CreatePost } from "@/components/CreatePost";
 
@@ -9,9 +9,10 @@ import { Login } from "@/modules/Login";
 import { DeletePostModal } from "@/components/PostCard/DeletePostModal";
 import { EditPostModal } from "@/components/PostCard/EditPostModal";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { useInView } from "react-intersection-observer";
 import useStore from "src/redux/userStore";
 import axios from "axios";
 import { Loading } from "@/components/Loading";
@@ -31,9 +32,40 @@ export const HomePage = () => {
   const { data: user } = useStore();
 
   //Data Fetching
-  const { data, fetchresponse, loading } = useFetch<Post[]>(url);
+  const [offset, setOffset] = useState(10);
 
-  //Form Section
+  let url = `https://dev.codeleap.co.uk/careers/?offset=0`;
+
+  let offsetUrl = `https://dev.codeleap.co.uk/careers/?offset=${offset}`;
+
+  const { data, refetch, loading, infiniteLoading } = useFetch<Post[]>(
+    url,
+    offsetUrl,
+  );
+
+  const [posts, setPosts] = useState<Post[] | null>(null);
+
+  function handleLoad() {
+    setOffset(offset + 10);
+    console.log("olaa");
+
+    if (posts === data) {
+      // setPosts([...posts!, ...data!]);
+      infiniteLoading();
+    } else {
+      // console.log("diferente");
+      infiniteLoading();
+      setPosts([...posts!, ...data!]);
+    }
+  }
+
+  useEffect(() => {
+    if (posts === null) {
+      setPosts(data);
+    } else {
+      // console.log("não");
+    }
+  }, [data]);
 
   const methods = useForm<Post>({
     mode: "onChange",
@@ -53,7 +85,7 @@ export const HomePage = () => {
           .post("https://dev.codeleap.co.uk/careers/", data, {
             headers: { "Content-Type": "application/json" },
           })
-          .then(() => fetchresponse())
+          .then(() => refetch())
           .catch((error) => {})
       : "";
   };
@@ -63,7 +95,7 @@ export const HomePage = () => {
   const deletePost = ({ id }: Post) => {
     axios.delete(`https://dev.codeleap.co.uk/careers/${id}/`).then(() => {
       setDeleteModalIsOpen(false);
-      fetchresponse();
+      refetch();
     });
   };
 
@@ -75,7 +107,7 @@ export const HomePage = () => {
         content: data.content,
       })
       .then(() => {
-        fetchresponse();
+        refetch();
         setEditModalIsOpen(false);
       });
   };
@@ -85,6 +117,16 @@ export const HomePage = () => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   const [modalData, setModalData] = useState<Post | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      handleLoad();
+    }
+  }, [inView]);
 
   return (
     <>
@@ -98,35 +140,38 @@ export const HomePage = () => {
               </form>
             </FormProvider>
 
-            <S.CardsWrapper>
+            <S.CardsWrapper ref={containerRef}>
               {loading ? (
                 <Loading />
               ) : (
-                data?.map(
-                  (
-                    { id, username, content, created_datetime, title },
-                    index,
-                  ) => {
-                    return (
-                      <PostCard
-                        handleDeleteClick={() => {
-                          setDeleteModalIsOpen(true);
-                          setModalData(data[index]);
-                        }}
-                        handleEditClick={() => {
-                          setEditModalIsOpen(true);
-                          setModalData(data[index]);
-                        }}
-                        isAuthor={username === user.name}
-                        key={id}
-                        user={username}
-                        post={content}
-                        time={created_datetime}
-                        title={title}
-                      />
-                    );
-                  },
-                )
+                <>
+                  {posts?.map(
+                    (
+                      { id, username, content, created_datetime, title },
+                      index,
+                    ) => {
+                      return (
+                        <PostCard
+                          handleDeleteClick={() => {
+                            setDeleteModalIsOpen(true);
+                            setModalData(posts[index]);
+                          }}
+                          handleEditClick={() => {
+                            setEditModalIsOpen(true);
+                            setModalData(posts[index]);
+                          }}
+                          isAuthor={username === user.name}
+                          key={id}
+                          user={username}
+                          post={content}
+                          time={created_datetime}
+                          title={title}
+                        />
+                      );
+                    },
+                  )}
+                  <div ref={ref}>{inView ? <Loading /> : null} </div>
+                </>
               )}
             </S.CardsWrapper>
             <DeletePostModal

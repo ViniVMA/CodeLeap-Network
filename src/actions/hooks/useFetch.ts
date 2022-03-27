@@ -1,21 +1,54 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
 
-export function useFetch<T = unknown>(url: string) {
+function useFetch<T = unknown>(url: string, offset: string) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [error, setError] = useState(null);
 
-  const fetchresponse = async () => {
+  useEffect(() => {
     setLoading(true);
     axios
       .get(url)
-      .then((response) => setData(response.data.results))
-      .then(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    fetchresponse();
+      .then((response) => {
+        setData(response.data.results);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [url]);
 
-  return { data, fetchresponse, loading };
+  const refetch = () => {
+    setLoading(true);
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data.results);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const infiniteLoading = () => {
+    axios
+      .get(offset)
+      .then((response) => {
+        setData(response.data.results);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {});
+  };
+
+  return { data, loading, error, refetch, infiniteLoading };
 }
+
+export default useFetch;

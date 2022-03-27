@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Loading = styled.div`
-  height: 40vh;
   display: grid;
   place-items: center;
   .lds-ring {
