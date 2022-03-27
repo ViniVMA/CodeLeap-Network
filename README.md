@@ -47,3 +47,8 @@ Start the server
 
 ## Screenshots
 
+![image](https://user-images.githubusercontent.com/89563059/160303918-60292f92-0076-4250-b510-ce9690f4f34e.png)
+![image](https://user-images.githubusercontent.com/89563059/160303925-7de1d0e1-e850-42eb-8a81-191ed11b939b.png)
+
+
+
