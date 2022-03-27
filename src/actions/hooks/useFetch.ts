@@ -22,7 +22,6 @@ function useFetch<T = unknown>(url: string, offset: string) {
   }, [url]);
 
   const refetch = () => {
-    setLoading(true);
     axios
       .get(url)
       .then((response) => {

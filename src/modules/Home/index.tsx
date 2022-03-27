@@ -34,9 +34,9 @@ export const HomePage = () => {
   //Data Fetching
   const [offset, setOffset] = useState(10);
 
-  let url = `https://dev.codeleap.co.uk/careers/?offset=0`;
+  let url = `https://dev.codeleap.co.uk/careers/?format=json&limit=20&offset=0`;
 
-  let offsetUrl = `https://dev.codeleap.co.uk/careers/?offset=${offset}`;
+  let offsetUrl = `https://dev.codeleap.co.uk/careers/?format=json&limit=20&offset=${offset}`;
 
   const { data, refetch, loading, infiniteLoading } = useFetch<Post[]>(
     url,
@@ -45,27 +45,16 @@ export const HomePage = () => {
 
   const [posts, setPosts] = useState<Post[] | null>(null);
 
-  function handleLoad() {
-    setOffset(offset + 10);
-    console.log("olaa");
-
-    if (posts === data) {
-      // setPosts([...posts!, ...data!]);
-      infiniteLoading();
-    } else {
-      // console.log("diferente");
-      infiniteLoading();
-      setPosts([...posts!, ...data!]);
-    }
-  }
-
   useEffect(() => {
-    if (posts === null) {
-      setPosts(data);
-    } else {
-      // console.log("não");
-    }
+    refetch();
+    setPosts(data);
   }, [data]);
+
+  const handleLoadMore = (param) => {
+    setOffset(offset + param);
+    infiniteLoading();
+    console.log("rodei", offset);
+  };
 
   const methods = useForm<Post>({
     mode: "onChange",
@@ -107,7 +96,7 @@ export const HomePage = () => {
         content: data.content,
       })
       .then(() => {
-        refetch();
+        // refetch();
         setEditModalIsOpen(false);
       });
   };
@@ -121,12 +110,6 @@ export const HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView) {
-      handleLoad();
-    }
-  }, [inView]);
 
   return (
     <>
@@ -170,7 +153,18 @@ export const HomePage = () => {
                       );
                     },
                   )}
-                  <div ref={ref}>{inView ? <Loading /> : null} </div>
+                  <S.ButtonsWrapper ref={ref}>
+                    {inView ? (
+                      <>
+                        {/* <S.NavigationButton onClick={() => handleLoadMore(-10)}>
+                          bACK
+                        </S.NavigationButton>
+                        <S.NavigationButton onClick={() => handleLoadMore(+10)}>
+                          NEXT
+                        </S.NavigationButton> */}
+                      </>
+                    ) : null}
+                  </S.ButtonsWrapper>
                 </>
               )}
             </S.CardsWrapper>

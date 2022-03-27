@@ -1,3 +1,4 @@
+import { Button } from "@/components/Button/button.style";
 import styled, { css } from "styled-components";
 
 export const Home = styled.div`
@@ -44,4 +45,28 @@ export const CardsWrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, #8481fa, #38c9c8);
   }
+`;
+
+export const NavigationButton = styled(Button)`
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  color: #000;
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(101deg, #8481fa, #38c9c8);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+`;
+
+export const ButtonsWrapper = styled.div`
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 19px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
 `;
