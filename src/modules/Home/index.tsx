@@ -4,6 +4,8 @@ import { TitleBar } from "@/components/TitleBar";
 import useFetch from "src/actions/hooks/useFetch";
 import { PostCard } from "@/components/PostCard";
 import { CreatePost } from "@/components/CreatePost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Login } from "@/modules/Login";
 import { DeletePostModal } from "@/components/PostCard/DeletePostModal";
@@ -28,6 +30,8 @@ interface Post {
 const url = `https://dev.codeleap.co.uk/careers/`;
 
 export const HomePage = () => {
+  const notify = () => toast("🚀 Success");
+
   //GlobalState
   const { data: user } = useStore();
 
@@ -71,6 +75,7 @@ export const HomePage = () => {
             headers: { "Content-Type": "application/json" },
           })
           .then(() => refetch())
+          .then(() => notify())
           .catch((error) => {})
       : "";
   };
@@ -78,10 +83,13 @@ export const HomePage = () => {
   //Modals
 
   const deletePost = ({ id }: Post) => {
-    axios.delete(`https://dev.codeleap.co.uk/careers/${id}/`).then(() => {
-      setDeleteModalIsOpen(false);
-      refetch();
-    });
+    axios
+      .delete(`https://dev.codeleap.co.uk/careers/${id}/`)
+      .then(() => {
+        setDeleteModalIsOpen(false);
+        refetch();
+      })
+      .then(() => notify());
   };
 
   const updatePost = (data: Post) => {
@@ -94,7 +102,8 @@ export const HomePage = () => {
       .then(() => {
         setEditModalIsOpen(false);
         refetch();
-      });
+      })
+      .then(() => notify());
   };
 
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);

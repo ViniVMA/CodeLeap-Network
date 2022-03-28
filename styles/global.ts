@@ -30,6 +30,12 @@ body {
   -webkit-font-smoothing: antialiased;
   font-family: 'Roboto', sans-serif;
 
+
+  .Toastify__toast{
+    font-size : 2.2rem;
+
+}
+
 }
 /*
   6. Improve media defaults
@@ -57,6 +63,10 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
   height: 100%;
   /* background-color: #000; */
+
+  
+
+  Toastify__toast
 
   #backgroundVideo {
     
