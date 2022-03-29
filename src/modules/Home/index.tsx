@@ -18,6 +18,7 @@ import { useInView } from "react-intersection-observer";
 import useStore from "src/redux/userStore";
 import axios from "axios";
 import { Loading } from "@/components/Loading";
+import useUpdateEffect from "@/actions/hooks/useUpdateEffect";
 
 interface Post {
   username: string;
@@ -27,8 +28,6 @@ interface Post {
   title: string;
 }
 
-const url = `https://dev.codeleap.co.uk/careers/`;
-
 export const HomePage = () => {
   const notify = () => toast("🚀 Success");
 
@@ -36,23 +35,33 @@ export const HomePage = () => {
   const { data: user } = useStore();
 
   //Data Fetching
-  const [offset, setOffset] = useState(10);
+  const [offset, setOffset] = useState(0);
 
-  let url = `https://dev.codeleap.co.uk/careers/?format=json&limit=20&offset=0`;
-
-  let offsetUrl = `https://dev.codeleap.co.uk/careers/?format=json&limit=20&offset=${offset}`;
+  let url = `https://dev.codeleap.co.uk/careers/?format=json&limit=10`;
+  let offSetUrl = `https://dev.codeleap.co.uk/careers/?format=json&limit=${offset}`;
 
   const { data, refetch, loading, infiniteLoading } = useFetch<Post[]>(
     url,
-    offsetUrl,
+    offSetUrl,
   );
 
   const [posts, setPosts] = useState<Post[] | null>(null);
 
-  useEffect(() => {
-    refetch();
+  const handleInfiniteLoading = () => {
+    setOffset(offset + 10);
+  };
+
+  const { ref, inView } = useInView();
+
+  useUpdateEffect(() => {
     setPosts(data);
+    console.log(offset);
   }, [data]);
+
+  useEffect(() => {
+    console.log(inView);
+    handleInfiniteLoading();
+  }, [inView]);
 
   //
 
@@ -114,8 +123,6 @@ export const HomePage = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { ref, inView } = useInView();
-
   return (
     <>
       {user.name ? (
@@ -158,13 +165,11 @@ export const HomePage = () => {
                       );
                     },
                   )}
-                  <S.ButtonsWrapper ref={ref}>
-                    {inView ? (
-                      <>
-                        <></>
-                      </>
-                    ) : null}
-                  </S.ButtonsWrapper>
+                  {!infiniteLoading ? (
+                    <S.ButtonsWrapper ref={ref}>
+                      <Loading />
+                    </S.ButtonsWrapper>
+                  ) : null}
                 </>
               )}
             </S.CardsWrapper>
